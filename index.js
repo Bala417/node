@@ -70,7 +70,7 @@ app.get("/api/person/:id", (req, res) => {
   }
 });
 
-const debounceDelete = _debounce(deletePerson, 1000);
+const debounceDelete = _debounce(deletePerson, 500);
 
 app.delete("/api/person/:id", (req, res) => {
   debounceDelete(req, res);
