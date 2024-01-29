@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const _debounce = require("lodash.debounce");
 
 const app = express();
 
@@ -69,7 +70,12 @@ app.get("/api/person/:id", (req, res) => {
   }
 });
 
+const debounceDelete = _debounce(deletePerson, 1000);
+
 app.delete("/api/person/:id", (req, res) => {
+  debounceDelete(req, res);
+});
+function deletePerson(req, res) {
   const id = req.params.id;
 
   const checkId = data.find((d) => d.id === Number(id));
@@ -83,7 +89,7 @@ app.delete("/api/person/:id", (req, res) => {
   } else {
     res.status(404).send("data not found");
   }
-});
+}
 
 app.post("/api/person", (req, res) => {
   const generateId = () => {
