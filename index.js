@@ -94,22 +94,22 @@ app.post("/api/person", (req, res) => {
   const newPhonebook = req.body;
   console.log(newPhonebook);
 
-  if (!newPhonebook.name || !newPhonebook.phone) {
-    if (newPhonebook.name.length === 0 && newPhonebook.phone.length === 0) {
+  if (!newPhonebook.name || !newPhonebook.number) {
+    if (newPhonebook.name.length === 0 && newPhonebook.number.length === 0) {
       res.status(204).send("<h1>name and Phone is empty");
-    } else if (newPhonebook.phone.length === 0) {
+    } else if (newPhonebook.number.length === 0) {
       res.status(206).send("<h1>phone is empty");
     } else {
       res.status(206).send("<h1>name is empty");
     }
   } else {
     const checkNameMatch = data.find((d) => d.name === newPhonebook.name);
-    const checkPhoneMatch = data.find((d) => d.phone === newPhonebook.phone);
+    const checkPhoneMatch = data.find((d) => d.number === newPhonebook.number);
     if (!checkNameMatch && !checkPhoneMatch) {
       const newData = {
         id: generateId(),
         name: newPhonebook.name,
-        phone: newPhonebook.phone,
+        number: newPhonebook.number,
       };
       data.push(newData);
       res.status(201).send("<h1>data successfully saved</h1>");
